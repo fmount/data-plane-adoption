@@ -59,9 +59,10 @@
       when: debug | default(false)
 
     - name: ansible.builtin.fail if Ceph <= Quincy
+      when: check_release | bool | default(false)
       ansible.builtin.fail:
-        msg: "Ceph version is <= Reef"
-      when: ceph.monmap.min_mon_release_name != "quincy"
+        msg: "Ceph version is != Reef"
+      when: ceph.monmap.min_mon_release_name != "reef"
 
 - name: Mons are in quorum
   block:
